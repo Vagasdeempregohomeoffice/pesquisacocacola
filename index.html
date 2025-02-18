@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Marca - Coca-Cola</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .container h1 {
+            color: #d32f2f;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 25px;
+            text-align: left;
+            display: none; /* Esconde todas as perguntas inicialmente */
+        }
+        .question.active {
+            display: block; /* Mostra apenas a pergunta ativa */
+        }
+        .question label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .question input[type="text"],
+        .question textarea,
+        .question select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        .question textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .question .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .question .options label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 12px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #d32f2f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #a82525;
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .congratulations {
+            display: none;
+            font-family: 'Arial', sans-serif;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #d32f2f, #a82525);
+            color: white;
+            overflow: hidden;
+            text-align: center;
+        }
+        .congratulations .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .congratulations h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .congratulations .message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .congratulations .amount {
+            font-size: 4em;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+        }
+        .congratulations .button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            color: #d32f2f;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .congratulations .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            animation: confetti 5s infinite;
+        }
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0);
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+        .congratulations .logo {
+            width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Pesquisa -->
+    <div class="container" id="survey">
+        <img src="cocacola.png" alt="Coca-Cola Logo" class="logo">
+        <h1>Pesquisa de Marca - Coca-Cola</h1>
+        <form id="surveyForm">
+            <!-- Pergunta 1 -->
+            <div class="question active" data-step="1">
+                <label for="q1">1. Qual é a sua percepção geral sobre a marca Coca-Cola? (Mínimo 30 caracteres)</label>
+                <textarea id="q1" name="q1" placeholder="Digite sua opinião..." required></textarea>
+            </div>
+
+            <!-- Pergunta 2 -->
+            <div class="question" data-step="2">
+                <label>2. Em uma escala de 1 a 10, quanto você recomendaria a Coca-Cola para um amigo?</label>
+                <select id="q2" name="q2" required>
+                    <option value="">Selecione uma nota</option>
+                    <option value="1">1 - Não recomendaria</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10 - Recomendaria fortemente</option>
+                </select>
+            </div>
+
+            <!-- Pergunta 3 -->
+            <div class="question" data-step="3">
+                <label>3. Qual dos seguintes atributos você mais associa à Coca-Cola? (Selecione até 3)</label>
+                <div class="options">
+                    <label><input type="checkbox" name="q3" value="sabor"> Sabor único</label>
+                    <label><input type="checkbox" name="q3" value="tradicao"> Tradição e história</label>
+                    <label><input type="checkbox" name="q3" value="publicidade"> Campanhas publicitárias criativas</label>
+                    <label><input type="checkbox" name="q3" value="qualidade"> Qualidade do produto</label>
+                    <label><input type="checkbox" name="q3" value="experiencia"> Experiência emocional</label>
+                </div>
+            </div>
+
+            <!-- Pergunta 4 -->
+            <div class="question" data-step="4">
+                <label for="q4">4. Qual é o seu produto Coca-Cola favorito? (Mínimo 30 caracteres)</label>
+                <input type="text" id="q4" name="q4" placeholder="Ex: Coca-Cola Zero, Coca-Cola Original..." required>
+            </div>
+
+            <!-- Pergunta 5 -->
+            <div class="question" data-step="5">
+                <label>5. Você se lembra de alguma campanha publicitária da Coca-Cola que tenha te marcado? Se sim, descreva brevemente. (Mínimo 30 caracteres)</label>
+                <textarea id="q5" name="q5" placeholder="Descreva a campanha..." required></textarea>
+            </div>
+
+            <!-- Navegação -->
+            <div class="navigation">
+                <button type="button" class="button" id="prevButton" disabled>Anterior</button>
+                <button type="button" class="button" id="nextButton">Próximo</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tela de Parabéns -->
+    <div class="congratulations" id="congratulations">
+        <div class="container">
+            <img src="cocacola.png" alt="Coca-Cola Logo" class="logo">
+            <h1>🎉 Parabéns! 🎉</h1>
+            <p class="message">Você acaba de ganhar</p>
+            <p class="amount">R$ 100,00</p>
+            <p class="message">por completar a pesquisa da Coca-Cola.</p>
+            <a href="pagartaxa.html" class="button">Sacar Agora</a>
+        </div>
+
+        <!-- Confetti Animation -->
+        <div class="confetti" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="confetti" style="top: 5%; left: 50%; animation-delay: 1s;"></div>
+        <div class="confetti" style="top: 15%; left: 70%; animation-delay: 2s;"></div>
+        <div class="confetti" style="top: 20%; left: 40%; animation-delay: 3s;"></div>
+        <div class="confetti" style="top: 25%; left: 90%; animation-delay: 4s;"></div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll('.question');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        let currentStep = 0;
+
+        // Mostra a pergunta atual
+        function showQuestion(step) {
+            questions.forEach((question, index) => {
+                question.classList.toggle('active', index === step);
+            });
+            prevButton.disabled = step === 0;
+            nextButton.textContent = step === questions.length - 1 ? 'Enviar' : 'Próximo';
+        }
+
+        // Avança para a próxima pergunta
+        nextButton.addEventListener('click', () => {
+            if (currentStep < questions.length - 1) {
+                currentStep++;
+                showQuestion(currentStep);
+            } else {
+                // Envia o formulário ao chegar na última pergunta
+                document.getElementById('survey').style.display = 'none';
+                document.getElementById('congratulations').style.display = 'flex';
+            }
+        });
+
+        // Volta para a pergunta anterior
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showQuestion(currentStep);
+            }
+        });
+
+        // Inicializa a primeira pergunta
+        showQuestion(currentStep);
+    </script>
+</body>
+</html>

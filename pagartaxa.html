@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxa de Saque - Coca-Cola</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #d32f2f, #a82525);
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .tax-info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .tax-info p {
+            margin: 0;
+            font-size: 1em;
+            color: #fff;
+        }
+        .pix-key {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            color: #d32f2f;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="cocacola.png" alt="Coca-Cola Logo" class="logo" style="width: 150px; margin-bottom: 20px;">
+        <h1>Taxa de Saque</h1>
+        <p class="message">
+            Para liberar seu prêmio de <strong>R$ 100,00</strong>, é necessário pagar uma taxa de <strong>10% (R$ 10,00)</strong>.
+            Esta taxa cobre os custos de processamento e envio do PIX, já que a Coca-Cola realiza envios em massa.
+        </p>
+
+        <div class="tax-info">
+            <p><strong>Por que a taxa?</strong></p>
+            <p>
+                A Coca-Cola utiliza um sistema de envio de PIX em massa para agilizar os pagamentos.
+                Devido ao volume de transações, os bancos cobram uma taxa de 10% sobre o valor enviado.
+                Essa taxa é repassada para garantir que você receba seu prêmio de forma rápida e segura.
+            </p>
+        </div>
+
+        <div class="pix-key">
+            Chave PIX: <strong>678d91ef-d74a-4e30-80c7-69e06870c343</strong>
+        </div>
+
+        <p class="message">
+            Após o pagamento, seu prêmio será liberado em até <strong>24 horas</strong>.
+        </p>
+
+        <button id="confirmButton" class="button">Já Paguei a Taxa</button>
+
+        <div class="footer">
+            <p>Dúvidas? Entre em contato com nosso suporte: suporte@cocacola.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Captura o botão de confirmação
+        const confirmButton = document.getElementById('confirmButton');
+
+        // Adiciona um evento de clique ao botão
+        confirmButton.addEventListener('click', () => {
+            // Altera o texto do botão para "Aguardando pagamento..."
+            confirmButton.textContent = 'Aguardando pagamento...';
+
+            // Desabilita o botão para evitar múltiplos cliques
+            confirmButton.disabled = true;
+        });
+    </script>
+</body>
+</html>
